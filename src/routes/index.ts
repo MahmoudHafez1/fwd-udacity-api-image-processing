@@ -1,8 +1,8 @@
 import express from 'express'
-import api from './api/api'
+import images from './images/images'
 
-const routes = express.Router();
+const routes = express.Router()
 
-routes.use('/api', api)
+routes.use('/images', images)
 
-export default routes;
+export default routes

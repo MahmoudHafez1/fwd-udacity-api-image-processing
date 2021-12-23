@@ -43,8 +43,8 @@ var express_1 = __importDefault(require("express"));
 var checkQuery_1 = __importDefault(require("../../utilities/middleware/checkQuery"));
 var checkResizedImage_1 = __importDefault(require("../../utilities/middleware/checkResizedImage"));
 var resizeImage_1 = __importDefault(require("../../utilities/resizeImage"));
-var api = express_1.default.Router();
-api.get('/', checkQuery_1.default, checkResizedImage_1.default, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+var images = express_1.default.Router();
+images.get('/', checkQuery_1.default, checkResizedImage_1.default, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var _a, imageName, width, height, resized;
     return __generator(this, function (_b) {
         switch (_b.label) {
@@ -53,12 +53,13 @@ api.get('/', checkQuery_1.default, checkResizedImage_1.default, function (req, r
                 return [4 /*yield*/, (0, resizeImage_1.default)(imageName, width, height)];
             case 1:
                 resized = _b.sent();
-                if (resized)
-                    res.send("<img src=\"images/full/".concat(imageName, ".jpg\" width=\"").concat(width, "\" height=\"").concat(height, "\" />"));
+                if (resized) {
+                    res.redirect("/api/images?filename=".concat(imageName, "&width=").concat(width, "&height=").concat(height));
+                }
                 else
                     res.send('Image processing failed');
                 return [2 /*return*/];
         }
     });
 }); });
-exports.default = api;
+exports.default = images;

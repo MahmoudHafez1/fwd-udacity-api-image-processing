@@ -39,26 +39,27 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var express_1 = __importDefault(require("express"));
-var checkQuery_1 = __importDefault(require("../../utilities/middleware/checkQuery"));
-var checkResizedImage_1 = __importDefault(require("../../utilities/middleware/checkResizedImage"));
-var resizeImage_1 = __importDefault(require("../../utilities/resizeImage"));
-var api = express_1.default.Router();
-api.get('/', checkQuery_1.default, checkResizedImage_1.default, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, imageName, width, height, resized;
+var path_1 = __importDefault(require("path"));
+var sharp_1 = __importDefault(require("sharp"));
+var resizeImage = function (imageName, width, height) { return __awaiter(void 0, void 0, void 0, function () {
+    var imagePath, newImagePath, _a;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
-                _a = res.locals, imageName = _a.imageName, width = _a.width, height = _a.height;
-                return [4 /*yield*/, (0, resizeImage_1.default)(imageName, width, height)];
+                imagePath = path_1.default.join(__dirname, '..', '..', 'public', 'images', 'full', "".concat(imageName, ".jpg"));
+                newImagePath = path_1.default.join(__dirname, '..', '..', 'public', 'images', 'resized', "".concat(imageName, "_").concat(width, "_").concat(height, ".jpg"));
+                _b.label = 1;
             case 1:
-                resized = _b.sent();
-                if (resized)
-                    res.send("<img src=\"images/full/".concat(imageName, ".jpg\" width=\"").concat(width, "\" height=\"").concat(height, "\" />"));
-                else
-                    res.send('Image processing failed');
-                return [2 /*return*/];
+                _b.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, (0, sharp_1.default)(imagePath).resize({ width: width, height: height }).toFile(newImagePath)];
+            case 2:
+                _b.sent();
+                return [2 /*return*/, true];
+            case 3:
+                _a = _b.sent();
+                return [2 /*return*/, false];
+            case 4: return [2 /*return*/];
         }
     });
-}); });
-exports.default = api;
+}); };
+exports.default = resizeImage;

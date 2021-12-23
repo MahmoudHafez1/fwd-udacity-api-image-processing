@@ -1,18 +1,21 @@
-import express from 'express';
-import path from 'path';
-import * as dotenv from 'dotenv';
+import express from 'express'
+import path from 'path'
+import * as dotenv from 'dotenv'
 import routes from './routes'
 
-const app = express();
+const app = express()
 
-dotenv.config();
+dotenv.config()
 
 const port = process.env.PORT || 3000
 
-app.use('/images', express.static(path.join(__dirname, 'images')))
+app.use(
+  '/images',
+  express.static(path.join(__dirname, '..', 'public', 'images'))
+)
 
-app.use('/', routes)
+app.use('/api', routes)
 
-app.listen(port, () => {
-    console.log(`server run successfully on port: ${port}`)
-})
+app.listen(port)
+
+export default app
