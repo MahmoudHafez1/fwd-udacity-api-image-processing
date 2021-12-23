@@ -1,5 +1,5 @@
 import expess from 'express'
-import imageExists from "./imageExists";
+import imageExists from "../imageExists";
 
 
 const checkQuery = (req: expess.Request, res: expess.Response, next: expess.NextFunction) => {
