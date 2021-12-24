@@ -5,7 +5,7 @@ const checkQuery = (
   req: expess.Request,
   res: expess.Response,
   next: expess.NextFunction
-) => {
+): void => {
   const filename = req.query.filename as unknown as string
   const width = req.query.width as unknown as string
   const height = req.query.height as unknown as string

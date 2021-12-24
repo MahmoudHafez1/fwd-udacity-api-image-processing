@@ -5,7 +5,7 @@ const resizeImage = async (
   imageName: string,
   width: number,
   height: number
-) => {
+): Promise<boolean> => {
   const imagePath = path.join(
     __dirname,
     '..',
